@@ -15,6 +15,14 @@ var_func new_var_func(){
     ans.frequency = 0;
     return ans;
 }
+bool is_reserved(char target[]){
+    char res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
+    bool found = 0;
+    for(int i = 0; i < 12 && !found; i++){
+        if(strcmp(target, res[i]) == 0)found = 1;
+    }
+    return found;
+}
 int main(){
     char inp[32], c, res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
     int sz = 0, inplen = 0;
@@ -28,15 +36,10 @@ int main(){
         }
         else{
             if(inplen != 0 && (isalpha(inp[0]) || inp[0] == '_')){
-                bool reserved = 0;
-                for(int i = 0; i < 12; i++){
-                    if(strcmp(res[i], inp) == 0){
-                        inplen = 0;
-                        reserved = 1;
-                        break;
-                    }
+                if(is_reserved(inp)){
+                    inplen = 0;
+                    continue;
                 }
-                if(reserved)continue;
                 bool found = 0;
                 for(int i = 0; i < sz && !found; i++){
                     if(strncmp(inp, var_funcs[i].name, 24) == 0){
@@ -57,15 +60,8 @@ int main(){
         }
     }
     if(inplen != 0 && (isalpha(inp[0]) || inp[0] == '_')){
-        bool reserved = 0;
-        for(int i = 0; i < 12; i++){
-            if(strcmp(res[i], inp) == 0){
-                inplen = 0;
-                reserved = 1;
-                break;
-            }
-        }
-        bool found = reserved;
+        bool found = is_reserved(inp);
+        if(found)inplen = 0;
         for(int i = 0; i < sz && !found; i++){
             if(strncmp(inp, var_funcs[i].name, 24) == 0){
                 var_funcs[i].frequency++;
