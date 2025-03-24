@@ -16,9 +16,10 @@ var_func new_var_func(){
     return ans;
 }
 int main(){
-    char name[30][32], inp[32], c, res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
-    int cnt[30], sz = 0, inplen = 0;
-    for(int i = 0; i < 30; i++)cnt[i] = 0;
+    char inp[32], c, res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
+    int sz = 0, inplen = 0;
+    var_func var_funcs[30];
+    for(int i = 0; i < 30; i++)var_funcs[i] = new_var_func();
     while(scanf("%c", &c) != EOF){
         if(isalnum(c) || c == '_'){
             inp[inplen] = c;
@@ -38,16 +39,16 @@ int main(){
                 if(reserved)continue;
                 bool found = 0;
                 for(int i = 0; i < sz && !found; i++){
-                    if(strncmp(inp, name[i], 24) == 0){
-                        cnt[i]++;
+                    if(strncmp(inp, var_funcs[i].name, 24) == 0){
+                        var_funcs[i].frequency++;
                         found = 1;
                         inplen = 0;
                     }
                 }
                 if(!found){
-                    strncpy(name[sz], inp, 24);
-                    name[sz][min(24, inplen)] = '\0';
-                    cnt[sz] = 1;
+                    strncpy(var_funcs[sz].name, inp, 24);
+                    var_funcs[sz].name[min(24, inplen)] = '\0';
+                    var_funcs[sz].frequency = 1;
                     sz++;
                     inplen = 0;
                 }
@@ -66,20 +67,20 @@ int main(){
         }
         bool found = reserved;
         for(int i = 0; i < sz && !found; i++){
-            if(strncmp(inp, name[i], 24) == 0){
-                cnt[i]++;
+            if(strncmp(inp, var_funcs[i].name, 24) == 0){
+                var_funcs[i].frequency++;
                 found = 1;
                 inplen = 0;
             }
         }
         if(!found){
-            strncpy(name[sz], inp, 24);
-            name[sz][min(24, inplen)] = '\0';
-            cnt[sz] = 1;
+            strncpy(var_funcs[sz].name, inp, 24);
+            var_funcs[sz].name[min(24, inplen)] = '\0';
+            var_funcs[sz].frequency = 1;
             sz++;
             inplen = 0;
         }
     }
-    for(int i = 0; i < sz; i++)printf("%s %d\n", name[i], cnt[i]);
+    for(int i = 0; i < sz; i++)printf("%s %d\n", var_funcs[i].name, var_funcs[i].frequency);
     return 0;
 }
