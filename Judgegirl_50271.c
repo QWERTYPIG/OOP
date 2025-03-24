@@ -44,6 +44,10 @@ void add_new_name(char input[], int input_length, var_func var_funcs[], int *var
     }
     return;
 }
+void print_var_funcs(var_func var_funcs[], int var_funcs_sz){
+    for(int i = 0; i < var_funcs_sz; i++)printf("%s %d\n", var_funcs[i].name, var_funcs[i].frequency);
+    return;
+}
 int main(){
     char inp[32], c;
     int sz = 0, inplen = 0;
@@ -61,7 +65,6 @@ int main(){
         }
     }
     add_new_name(inp, inplen, var_funcs, &sz);
-    inplen = 0;
-    for(int i = 0; i < sz; i++)printf("%s %d\n", var_funcs[i].name, var_funcs[i].frequency);
+    print_var_funcs(var_funcs, sz);
     return 0;
 }
