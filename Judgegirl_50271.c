@@ -34,7 +34,7 @@ bool find_previous(char target[], var_func var_funcs[], int var_func_sz){
     return found;
 }
 int main(){
-    char inp[32], c, res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
+    char inp[32], c;
     int sz = 0, inplen = 0;
     var_func var_funcs[30];
     for(int i = 0; i < 30; i++)var_funcs[i] = new_var_func();
