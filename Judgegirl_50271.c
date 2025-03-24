@@ -5,6 +5,16 @@
 int min(int a, int b){
     return a < b ? a : b;
 }
+typedef struct var_func{
+    char name[32];
+    int frequency;
+}var_func;
+var_func new_var_func(){
+    var_func ans;
+    ans.name[0] = '\0';
+    ans.frequency = 0;
+    return ans;
+}
 int main(){
     char name[30][32], inp[32], c, res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
     int cnt[30], namelen[30], sz = 0, inplen = 0;
