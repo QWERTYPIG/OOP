@@ -34,6 +34,7 @@ bool find_previous(char target[], var_func var_funcs[], int var_funcs_sz){
     return found;
 }
 void add_new_name(char input[], int input_length, var_func var_funcs[], int *var_funcs_sz){
+    if(input_length == 0 || !(isalpha(input[0]) || input[0] == '_'))return;
     if(is_reserved(input))return;
     if(!find_previous(input, var_funcs, *var_funcs_sz)){
         strncpy(var_funcs[*var_funcs_sz].name, input, 24);
@@ -55,15 +56,11 @@ int main(){
             inp[inplen] = '\0';
         }
         else{
-            if(inplen != 0 && (isalpha(inp[0]) || inp[0] == '_')){
-                add_new_name(inp, inplen, var_funcs, &sz);
-            }
+            add_new_name(inp, inplen, var_funcs, &sz);
             inplen = 0;
         }
     }
-    if(inplen != 0 && (isalpha(inp[0]) || inp[0] == '_')){
-        add_new_name(inp, inplen, var_funcs, &sz);
-    }
+    add_new_name(inp, inplen, var_funcs, &sz);
     inplen = 0;
     for(int i = 0; i < sz; i++)printf("%s %d\n", var_funcs[i].name, var_funcs[i].frequency);
     return 0;
