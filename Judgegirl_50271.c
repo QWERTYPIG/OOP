@@ -17,7 +17,7 @@ var_func new_var_func(){
 }
 int main(){
     char name[30][32], inp[32], c, res[12][8] = {"if", "else", "while", "for", "switch", "case", "break", "return", "void", "int", "float", "char"};
-    int cnt[30], namelen[30], sz = 0, inplen = 0;
+    int cnt[30], sz = 0, inplen = 0;
     for(int i = 0; i < 30; i++)cnt[i] = 0;
     while(scanf("%c", &c) != EOF){
         if(isalnum(c) || c == '_'){
@@ -48,7 +48,6 @@ int main(){
                     strncpy(name[sz], inp, 24);
                     name[sz][min(24, inplen)] = '\0';
                     cnt[sz] = 1;
-                    namelen[sz] = min(24, inplen);
                     sz++;
                     inplen = 0;
                 }
@@ -77,7 +76,6 @@ int main(){
             strncpy(name[sz], inp, 24);
             name[sz][min(24, inplen)] = '\0';
             cnt[sz] = 1;
-            namelen[sz] = min(24, inplen);
             sz++;
             inplen = 0;
         }
